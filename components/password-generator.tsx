@@ -1,14 +1,7 @@
 "use client";
 
 import { useState, ChangeEvent } from 'react';
-import { 
-    Card,
-    CardHeader,
-    CardTitle,
-    CardDescription,
-    CardContent,
-    CardFooter
-} from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -19,11 +12,16 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 export default function GeneratePassword() {
     const [length, setLength] = useState<number>(16);
     const [includeUppercase, setIncludeUppercase] = useState<boolean>(true);
-    const [includeLowercase, setIncludeLowercase] = useState<boolean>(false);
-    const [includeNumbers, setIncludeNumbers] = useState<boolean>(false);
-    const [includeSymbols, setIncludeSymbols] = useState<boolean>(false);
+    const [includeLowercase, setIncludeLowercase] = useState<boolean>(true);
+    const [includeNumbers, setIncludeNumbers] = useState<boolean>(true);
+    const [includeSymbols, setIncludeSymbols] = useState<boolean>(true);
     const [password, setPassword] = useState<string>("");
+    const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
 
+    const togglePasswordVisibility = (): void => {
+        setPasswordVisible(!passwordVisible);
+    };
+    
     const handleLengthChange = (e: ChangeEvent<HTMLInputElement>): void => {
         setLength(Number(e.target.value));
     };
@@ -56,33 +54,27 @@ export default function GeneratePassword() {
             const randomIndex = Math.floor(Math.random() * allChars.length);
             generatedPassword += allChars[randomIndex];
         }
-        setPassword(generatedPassword)
+        setPassword(generatedPassword);
     }
 
     const copyToClipboard = (): void => {
         navigator.clipboard.writeText(password).then(
-            (success) => {
-                alert("password copied to clipboard!");
+            () => {
+                alert("Password copied to clipboard!");
             },
-            (error) => {
-                alert("Failed to copy password to clipboard.")
+            () => {
+                alert("Failed to copy password to clipboard.");
             }
         );
     };
-    
 
     const resetPassword = (): void => {
-        const confirmation = confirm("Are you sure, you want to reset your password?");
+        const confirmation = confirm("Are you sure you want to reset your password?");
         if (confirmation) {
-            setLength(16);
-            setIncludeUppercase(true);
-            setIncludeLowercase(false);
-            setIncludeNumbers(false);
-            setIncludeSymbols(false);
             setPassword("");
             alert("Password has been reset!");
         } else {
-            alert("Password reset canceled.")
+            alert("Password reset canceled.");
         }
     }
 
@@ -103,9 +95,9 @@ export default function GeneratePassword() {
                         </p>
                     </div>
                     <div className='font-bold space-y-2'>
-                        <label htmlFor='lenght'>Password Length</label>
+                        <label htmlFor='length'>Password Length</label>
                         <Input
-                        id='lenght'
+                        id='length'
                         type='number'
                         min="8"
                         max="32"
@@ -115,7 +107,7 @@ export default function GeneratePassword() {
                         />
                     </div>
                     <div className='space-y-2'>
-                        <Label className='font-bold'>Inlude:</Label>
+                        <Label className='font-bold'>Include:</Label>
                         <div className='flex items-center space-x-2'>
                             <Checkbox
                             className='rounded-3xl'
@@ -155,7 +147,7 @@ export default function GeneratePassword() {
                     </div>
                     <Button
                     type='button'
-                    className='w-full rounded-3xl active:scale-95 transition-transform duration-100'
+                    className='w-full rounded-3xl active:bg-gray-900 active:scale-95 transition-transform duration-100'
                     onClick={generatePassword}
                     >
                         Generate Password
@@ -166,11 +158,19 @@ export default function GeneratePassword() {
                         </Label>
                         <Input
                         id='password'
-                        type='text'
+                        type={passwordVisible ? 'text' : 'password'}
                         value={password}
                         readOnly
-                        className='flex rounded-2xl border-2 border-gray-700'
+                        className='flex rounded-3xl border-2 border-gray-700'
                         />
+                        <Button
+                            type='button'
+                            onClick={togglePasswordVisibility}
+                            className='bg-green hover:bg-green absolute right-2 top-1/2 transform -translate-y-1/4 size-15 active:scale-50 transition-transform duration-100'
+                            aria-label="Toggle Password Visibility"
+                        >
+                            {passwordVisible ? <FaEyeSlash /> : <FaEye />}
+                        </Button>
                     </div>
                     <div className='flex items-center justify-between'>
                         <Button
@@ -185,7 +185,7 @@ export default function GeneratePassword() {
                         onClick={resetPassword}
                         className='rounded-3xl w-40 bg-red-800 hover:bg-red-600 active:scale-95 transition-transform duration-100'
                         >
-                            Reset
+                            Reset Password
                         </Button>
                     </div>
                 </div>
