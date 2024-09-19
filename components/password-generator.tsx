@@ -86,7 +86,7 @@ export default function GeneratePassword() {
             backgroundPosition: 'center'
         }}
         >
-            <Card className='border-gray-900 border-2 w-full max-w-md p-6 rounded-3xl shadow-2xl bg-gradient-to-r from-green-600 via-green-400 to-green-600'>
+            <Card className='border-gray-900 border-2 w-full max-w-md p-6 rounded-3xl shadow-2xl bg-gradient-to-r from-green-400 via-green-200 to-green-400'>
                 <div className='mx-auto max-w-md space-y-6'>
                     <div className='space-y-2 text-center'>
                         <h1 className='font-bold text-3xl'>Password Generator</h1>
