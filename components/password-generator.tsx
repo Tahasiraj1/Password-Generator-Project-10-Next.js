@@ -169,7 +169,7 @@ export default function GeneratePassword() {
                             className='bg-green hover:bg-green absolute right-2 top-1/2 transform -translate-y-1/4 size-15 active:scale-50 transition-transform duration-100'
                             aria-label="Toggle Password Visibility"
                         >
-                            {passwordVisible ? <FaEyeSlash /> : <FaEye />}
+                            {passwordVisible ? <FaEyeSlash className='text-black' /> : <FaEye className='text-black' />}
                         </Button>
                     </div>
                     <div className='flex items-center justify-between'>
