@@ -35,6 +35,12 @@ export default function GeneratePassword() {
     };
 
     const generatePassword = (): void => {
+
+        if (length < 8 || length > 32) {
+            alert("Password length must be between 8 and 32 characters.");
+            return;
+        }
+
         const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         const lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
         const numberChars = "0123456789";
@@ -86,7 +92,7 @@ export default function GeneratePassword() {
             backgroundPosition: 'center'
         }}
         >
-            <Card className='border-gray-900 border-2 w-full max-w-md p-6 rounded-3xl shadow-2xl bg-gradient-to-r from-green-600 via-green-400 to-green-600'>
+            <Card className='border-gray-900 border-2 w-full max-w-md p-6 rounded-3xl shadow-2xl bg-gradient-to-r from-green-400 via-green-300 to-green-400'>
                 <div className='mx-auto max-w-md space-y-6'>
                     <div className='space-y-2 text-center'>
                         <h1 className='font-bold text-3xl'>Password Generator</h1>
@@ -99,8 +105,6 @@ export default function GeneratePassword() {
                         <Input
                         id='length'
                         type='number'
-                        min="8"
-                        max="32"
                         value={length}
                         onChange={handleLengthChange}
                         className='w-full rounded-2xl border-2 border-gray-700'
@@ -169,7 +173,7 @@ export default function GeneratePassword() {
                             className='bg-green hover:bg-green absolute right-2 top-1/2 transform -translate-y-1/4 size-15 active:scale-50 transition-transform duration-100'
                             aria-label="Toggle Password Visibility"
                         >
-                            {passwordVisible ? <FaEyeSlash /> : <FaEye />}
+                            {passwordVisible ? <FaEyeSlash className='text-black' /> : <FaEye className='text-black' />}
                         </Button>
                     </div>
                     <div className='flex items-center justify-between'>
