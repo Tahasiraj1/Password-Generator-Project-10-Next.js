@@ -85,7 +85,7 @@ export default function GeneratePassword() {
     }
 
     return (
-        <div className='flex flex-col items-center justify-center min-h-screen'
+        <div className='flex flex-col items-center justify-center min-h-screen p-4 sm:p-8'
         style={{
             backgroundImage: `url('/pass4.jpg')`,
             backgroundSize: 'cover',
